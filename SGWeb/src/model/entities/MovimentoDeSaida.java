@@ -1,12 +1,14 @@
 package model.entities;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class MovimentoSaida {
+public class MovimentoDeSaida {
 
 	@Id
 	@GeneratedValue
@@ -15,6 +17,7 @@ public class MovimentoSaida {
 	private Conta conta;
 	@ManyToOne
 	private NotaDeSaida nota;
+	private BigDecimal valor;
 
 	public Long getCodigo() {
 		return codigo;
@@ -38,6 +41,14 @@ public class MovimentoSaida {
 
 	public void setNota(NotaDeSaida nota) {
 		this.nota = nota;
+	}
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
 	}
 
 }

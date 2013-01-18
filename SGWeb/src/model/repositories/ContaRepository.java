@@ -19,19 +19,20 @@ public class ContaRepository {
 		this.manager.persist(conta);
 	}
 	
+	public void atualiza(Conta conta){
+		this.manager.merge(conta);
+	}
+	
 	public void remove(Long codigoReduzido){
 		Conta conta = this.procura(codigoReduzido);
 		this.manager.remove(conta);
 	}
 	
-	public void atualiza(Conta conta){
-		this.manager.merge(conta);
-	}
-
 	public Conta procura(Long codigoReduzido) {
 		return this.manager.find(Conta.class, codigoReduzido);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Conta> getLista(){
 		Query query = this.manager.createQuery("select x from Conta x");
 		return query.getResultList();
