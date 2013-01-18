@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/WEB-INF/templates/template.xhtml">
+		<ui:define name="content">
+		<h:form id="form">
+			<h1>Plano de Contas</h1>
+			
+			<p:contextMenu>
+				<p:menuitem value="Visualizar" update="documentPanel" icon="ui-icon-search" oncomplete="documentDialog.show()"/>
+				<p:menuitem value="Inserir" update="insertPanel" icon="ui-icon-disk" oncomplete="insertDialog.show()" action="#{contaBean.criaNovaConta}"/>
+				<p:menuitem value="Alterar" update="updatePanel" icon="ui-icon-arrowrefresh-1-w" oncomplete="updateDialog.show()" action="#{contaBean.seleccionaConta}"/>
+				<p:menuitem value="Deletar" icon="ui-icon-close"/>
+			</p:contextMenu>
+			
+			<p:treeTable value="#{contaBean.root}" var="conta" selectionMode="single" selection="#{contaBean.selectedNode}">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Código Reduzido"/>
+					</f:facet>
+					<h:outputText value="#{conta.codigoReduzido}"/>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Conta Contábil"/>
+					</f:facet>
+					<h:outputText value="#{conta.contaContabil}"/>
+				</p:column>
+			
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Descrição"/>
+					</f:facet>
+					<h:outputText value="#{conta.descricao}"/>
+				</p:column>
+			</p:treeTable>
+			
+			<p:dialog header="Detalhes da Conta" showEffect="fade" widgetVar="documentDialog" modal="true">
+				<p:outputPanel id="documentPanel">
+					<h:panelGrid  columns="2" cellpadding="5" rendered="#{not empty contaBean.selectedNode}">  
+		            	<h:outputLabel for="name" value="Código Reduzido: " />  
+		                <h:outputText id="name" value="#{contaBean.selectedNode.data.codigoReduzido}" style="font-weight:bold" />  
+		  
+		                <h:outputLabel for="size" value="Conta Contábil: " />  
+		                <h:outputText id="size" value="#{contaBean.selectedNode.data.contaContabil}" style="font-weight:bold" />  
+		  
+		                <h:outputLabel for="type" value="Descrição: " />  
+		                <h:outputText id="type" value="#{contaBean.selectedNode.data.descricao}" style="font-weight:bold" />  
+		            </h:panelGrid>  
+				</p:outputPanel>
+			</p:dialog>
+
+			<p:dialog header="Cadastrar Nova Conta" showEffect="fade" widgetVar="insertDialog" modal="true">
+				<p:outputPanel id="insertPanel">
+					<h:panelGrid  columns="2" cellpadding="5">	  
+		                <h:outputLabel for="contaContabil" value="Conta Contábil: " />  
+		                <h:inputText id="contaContabil" value="#{contaBean.conta.contaContabil}"/>  
+		  
+		                <h:outputLabel for="descricao" value="Descrição: " />  
+		                <h:inputText id="descricao" value="#{contaBean.conta.descricao}"/>
+		                
+		                <h:outputLabel for="contaPai" value="Conta Pai: "/>
+		                <h:inputText id="contaPai" value="#{contaBean.conta.contaPai}" disabled="true"/>
+		                
+		                <h:outputLabel value="Conta Raiz: " for="contaRaiz"/>
+		                <h:selectBooleanCheckbox id="contaRaiz"/>
+		            </h:panelGrid>  
+				</p:outputPanel>
+			</p:dialog>
+			
+			<p:dialog header="Alterar Conta" showEffect="fade" widgetVar="updateDialog" modal="true">
+				<p:outputPanel id="updatePanel">
+					<h:panelGrid  columns="4" cellpadding="5" >
+		            	<h:outputLabel for="codigoReduzidoUpdate" value="Código Reduzido: "/>  
+		                <h:outputText id="codigoReduzidoUpdate" value="#{contaBean.conta.codigoReduzido}"/>
+		  
+		                <h:outputLabel for="contaContabilUpdate" value="Conta Contábil: " />  
+		                <h:inputText id="contaContabilUpdate" value="#{contaBean.conta.contaContabil}"/>  
+		  
+		                <h:outputLabel for="descricaoUpdate" value="Descrição: " />  
+		                <h:inputText id="descricaoUpdate" value="#{contaBean.conta.descricao}"/>
+		                
+		                <h:outputLabel for="contaPaiUpdate" value="Conta Pai: "/>
+		                <h:inputText id="contaPaiUpdate" value="#{contaBean.conta.contaPai}" disabled="true"/>
+		                
+		                <h:outputLabel value="Conta Raiz: " for="contaRaizUpdate"/>
+		                <h:selectBooleanCheckbox id="contaRaizUpdate"/>
+		            </h:panelGrid>  
+				</p:outputPanel>
+			</p:dialog>
+
+		</h:form>
+		</ui:define>
+	</ui:composition>
+</html>
