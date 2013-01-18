@@ -12,16 +12,16 @@ public class NotaDeEntrada {
 
 	@Id
 	@GeneratedValue
-	private long codigo;
+	private Long codigo;
 	private String descricao;
 	private Calendar dataEmissao;
 	private BigDecimal valor;
 
-	public long getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(long codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 
