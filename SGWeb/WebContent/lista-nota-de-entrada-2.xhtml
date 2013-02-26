@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition >
+	<h:dataTable id="lista" var="nota" value="#{notaDeEntradaBean.notas}" style="margin-top:10px;">
+		<h:column headerText="Código" width="55">
+			<h:outputText value="#{nota.codigo}"/>
+		</h:column>
+		
+		<h:column headerText="Descrição">
+			<h:outputText value="#{nota.descricao}"/>
+		</h:column>
+	
+		<h:column headerText="Data Emissão" width="110">
+			<h:outputText value="#{nota.dataEmissao.time}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</h:outputText>
+		</h:column>
+	
+		<h:column headerText="Valor">
+			<h:outputText value="#{nota.valor}"/>
+		</h:column>
+		
+		<h:column headerText="Opções">
+			<f:ajax 
+				event="click"
+				render="@form"
+				listener="#{notaDeEntradaBean.preparaAlteracao}">
+				<h:commandLink>
+					<f:param name="codigo" value="#{nota.codigo}"/>
+					<h:outputText value="Alterar" />
+				</h:commandLink>
+			</f:ajax>
+			
+			<f:ajax 
+				event="click"
+				render="@form"
+				listener="#{notaDeEntradaBean.remove}">
+				<h:commandLink>
+					<f:param name="codigo" value="#{nota.codigo}"/>
+					<h:outputText value="Deletar" />
+				</h:commandLink>
+			</f:ajax>
+		</h:column>
+	</h:dataTable>
+</ui:composition>
+</html>

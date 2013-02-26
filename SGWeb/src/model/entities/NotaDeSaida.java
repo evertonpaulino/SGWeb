@@ -6,6 +6,7 @@ import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class NotaDeSaida {
@@ -16,6 +17,8 @@ public class NotaDeSaida {
 	private String descricao;
 	private Calendar dataEmissao;
 	private BigDecimal valor;
+	@ManyToOne
+	private Conta conta;
 
 	public Long getCodigo() {
 		return codigo;
@@ -47,6 +50,14 @@ public class NotaDeSaida {
 
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
+	}
+
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 
 }

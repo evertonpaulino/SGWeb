@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition >
+	<p:dialog widgetVar="dlg" header="Nota de Entrada" modal="true" appendToBody="true" resizable="false">
+		<h:form id="form">
+			<p:panel id="formulario" style="margin-bottom:10px;">
+				<h:inputHidden value="#{notaDeEntradaBean.nota.codigo}"/>
+				<h:panelGrid columns="3">
+					<p:outputLabel value="Descrição" for="descricao"/>
+					<p:inputText 
+						id="descricao"
+						required="true"
+						requiredMessage="Informe a descrição da Nota"
+						value="#{notaDeEntradaBean.nota.descricao}"/>
+					<p:message for="descricao"/>
+			
+					<p:outputLabel value="Data de Emissão" for="dataDeEmissao"/>
+					<p:calendar 
+						id="dataDeEmissao"
+						required="true"
+						requiredMessage="Informe a data de emissão"
+						value="#{notaDeEntradaBean.nota.dataEmissao}" 
+						pattern="dd/MM/yyyy"/>
+					<p:message for="dataDeEmissao"/>
+					
+					<p:outputLabel value="Valor" for="valor"/>
+					<p:inputText 
+						id="valor"
+						required="true"
+						requiredMessage="Informe o valor da nota"
+						value="#{notaDeEntradaBean.nota.valor}"/>
+					<p:message for="valor"/>
+					
+				</h:panelGrid>
+			</p:panel>
+			
+
+			<p:panel id="pesquisaConta" header="Plano de Conta" columns="4">
+				<p:outputLabel value="Conta" for="conta"/>
+				<p:inputText 
+					id="conta"
+					required="true"
+					requiredMessage="Informe a Conta"
+					value="#{notaDeEntradaBean.nota.conta.codigoReduzido}"/>
+				<p:commandButton 
+					icon="ui-icon-search" 
+					title="Procurar Conta"
+					process="pesquisaConta"
+					update="pesquisaConta"
+					actionListener="#{notaDeEntradaBean.buscaConta}"
+					/>
+				<p:message for="conta"/>
+				
+				<div>
+				<p:outputLabel value="Conta Contábil:"/>
+				<h:outputText value="#{notaDeEntradaBean.nota.conta.contaContabil}"/>
+				</div>
+				<div>
+				<p:outputLabel value="Descrição:"/>
+				<h:outputText value="#{notaDeEntradaBean.nota.conta.descricao}"/>
+				</div>
+			</p:panel>
+			
+			<p:commandButton 
+				value="Salvar"
+				update=":listaForm:lista,formulario"
+				actionListener="#{notaDeEntradaBean.adicionar}"
+				oncomplete="dlg.hide();"/>
+			
+		</h:form>
+		
+		<h:form id="formConta">
+
+		</h:form>
+
+			<!-- 
+			 <ui:include src="/buscaConta.xhtml"></ui:include>
+			 -->
+
+	</p:dialog>
+
+	
+	<p:commandButton value="Novo" type="buttom" onclick="dlg.show()"/>
+	
+</ui:composition>
+</html>

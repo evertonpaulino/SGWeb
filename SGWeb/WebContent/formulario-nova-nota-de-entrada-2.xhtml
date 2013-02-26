@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition >
+	<h:inputHidden value="#{notaDeEntradaBean.nota.codigo}"/>
+	<h:panelGrid columns="3">
+		<h:outputLabel value="Descrição" for="descricao"/>
+		<h:inputText 
+			id="descricao"
+			required="true"
+			requiredMessage="Informe a descrição da Nota"
+			value="#{notaDeEntradaBean.nota.descricao}"/>
+		<h:message for="descricao"/>
+
+		<h:outputLabel value="Data de Emissão" for="dataDeEmissao"/>
+			<h:inputText
+			id="dataDeEmissao"
+			required="true"
+			requiredMessage="Informe a data de emissão"
+			value="#{notaDeEntradaBean.nota.dataEmissao}">
+			<f:convertDateTime pattern="dd/MM/yyyy"/>
+		</h:inputText>
+		<h:message for="dataDeEmissao"/>
+		
+		<h:outputLabel value="Valor" for="valor"/>
+		<h:inputText 
+			id="valor"
+			required="true"
+			requiredMessage="Informe o valor da nota"
+			value="#{notaDeEntradaBean.nota.valor}"/>
+		<h:message for="valor"/>
+		
+	</h:panelGrid>
+
+
+	<h:commandButton 
+		value="Salvar"
+		update=":listaForm:lista,formulario"
+		actionListener="#{notaDeEntradaBean.adicionar}"
+		oncomplete="dlg.hide();"/>
+	
+	<h:commandButton value="Novo" type="buttom" onclick="dlg.show()"/>
+	
+</ui:composition>
+</html>

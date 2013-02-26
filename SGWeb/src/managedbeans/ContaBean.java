@@ -44,11 +44,19 @@ public class ContaBean {
 	}
 
 	public void preparaAlteracao(){
+		System.out.println("preparaAlteracao - ContaBean");
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		Long codigoReduzido = Long.parseLong(params.get("codigoReduzido"));
 		EntityManager manager = this.getManager();
 		ContaRepository repository = new ContaRepository(manager);
 		this.conta = repository.procura(codigoReduzido);
+	}
+	
+	public void buscaConta(){
+		System.out.println("buscaConta - ContaBean");
+		EntityManager manager = this.getManager();
+		ContaRepository repository = new ContaRepository(manager);
+		this.conta = repository.procura(this.conta.getCodigoReduzido());
 	}
 	
 	public void remove(){

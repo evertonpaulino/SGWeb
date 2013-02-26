@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+		<h:form id="formConta">
+				<p:panel id="pesquisaConta" header="Plano de Conta" columns="4">
+					<p:outputLabel value="Conta" for="conta"/>
+					<p:inputText 
+						id="conta"
+						required="true"
+						requiredMessage="Informe a Conta"
+						value="#{contaBean.conta.codigoReduzido}"/>
+					<p:commandButton 
+						icon="ui-icon-search" 
+						title="Procurar Conta"
+						update="pesquisaConta"
+						actionListener="#{contaBean.buscaConta}"/>
+					<p:message for="conta"/>
+					
+					<div>
+					<p:outputLabel value="Conta Contábil:"/>
+					<h:outputText value="#{contaBean.conta.contaContabil}"/>
+					</div>
+					<div>
+					<p:outputLabel value="Descrição:"/>
+					<h:outputText value="#{contaBean.conta.descricao}"/>
+					</div>
+				</p:panel>
+			</h:form>
+		
+</ui:composition>
+</html>

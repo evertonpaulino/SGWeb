@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition >
+	<h:form id="listaForm">
+		<p:dataTable id="lista" var="nota" value="#{notaDeEntradaBean.notas}" style="margin-top:10px;">
+			<p:column headerText="Código" style="width:55px">
+				<h:outputText value="#{nota.codigo}"/>
+			</p:column>
+			
+			<p:column headerText="Código Reduzido" style="width:50px">
+				<h:outputText value="#{nota.conta.codigoReduzido}"/>
+			</p:column>
+			
+			<p:column headerText="Descrição da Conta" style="width:100px">
+				<h:outputText value="#{nota.conta.descricao}"/>
+			</p:column>
+
+			<p:column headerText="Descrição">
+				<h:outputText value="#{nota.descricao}"/>
+			</p:column>
+		
+			<p:column headerText="Data Emissão" style="width:100px">
+				<h:outputText value="#{nota.dataEmissao.time}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</p:column>
+		
+			<p:column headerText="Valor" style="width:200px">
+				<h:outputText value="#{nota.valor}" style="text-align: right"/>
+			</p:column>
+			
+			<p:column headerText="Opções" style="width:150px">
+				<p:commandLink  
+					action="#{notaDeEntradaBean.preparaAlteracao}" 
+					update=":form:formulario" 
+					onclick="dlg.show()"
+					style="margin: 0 10px;" 
+					value="Alterar"
+					immediate="true">
+					<f:param name="codigo" value="#{nota.codigo}"/>
+				</p:commandLink>
+				<p:commandLink 
+					actionListener="#{notaDeEntradaBean.remove}" 
+					update="lista"
+					style="margin: 0 10px;"
+					value="Deletar">
+					<f:param name="codigo" value="#{nota.codigo}"/>
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</ui:composition>
+</html>
